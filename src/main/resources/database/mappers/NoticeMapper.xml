@@ -40,7 +40,7 @@
 	</select>
 	
 	<!-- Detail -->
-	<select id="getDetail" parameterType="BoardVO" resultType="BoardVO">
+	<select id="getDetail" parameterType="BoardVO" resultType="NoticeVO">
 		SELECT * FROM NOTICE WHERE BOARDNO=#{boardNo}
 	</select>
 	<!-- Update 제목, 내용 -->

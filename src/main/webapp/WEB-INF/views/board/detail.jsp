@@ -19,7 +19,7 @@
             	<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
             	<!-- Begin Page Content -->
                 <div class="container-fluid">
-	                <h1>List Page</h1>
+	                <h1>Detail Page</h1>
 	                <div class="card shadow mb-4">
 	                	<div class="card-body">
 	                		<div class="table-responsive">
@@ -34,33 +34,18 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${list}" var="vo">
 											<tr>
-												<td>${vo.boardNo}</td>
-												<td><a href="./detail?boardNo=${vo.boardNo}">${vo.boardTitle}</a></td>
-												<td>${vo.boardWriter}</td>
-												<td>${vo.boardDate}</td>
-												<td>${vo.boardHit}</td>
+												<td>${dto.boardNo}</td>
+												<td>${dto.boardTitle}</td>
+												<td>${dto.boardWriter}</td>
+												<td>${dto.boardDate}</td>
+												<td>${dto.boardHit}</td>
 											</tr>
-										</c:forEach>
 									</tbody>
 	                			</table>
-	                			<div class="row">
-	                				<div class="col-sm-12 col-md-5">
-	                				</div>
-	                				<div class="col-sm-12 col-md-7">
-	                				</div>
-	                			</div>
 	                		</div>
-								<a href="./add" class="btn btn-primary btn-icon-split">
-		                            <span class="icon text-white-50">
-		                            <i class="fas fa-flag"></i>
-		                            </span>
-		                            <span class="text">글작성</span>
-	                            </a>
 	                	</div>
 	                </div>
-                
                 </div>
             </div>
 			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
