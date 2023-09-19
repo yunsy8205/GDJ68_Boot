@@ -1,4 +1,4 @@
-package com.winter.app;
+package com.winter.app.board;
 
 import java.sql.Date;
 
