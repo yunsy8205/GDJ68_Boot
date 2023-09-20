@@ -42,10 +42,6 @@ public class NoticeService implements BoardService{
 
 		for(MultipartFile multipartFile:files) {
 			
-			if(result==1) {
-				throw new Exception();
-			}
-			
 			if(multipartFile.isEmpty()) {
 				continue;//비어있다면
 			}
