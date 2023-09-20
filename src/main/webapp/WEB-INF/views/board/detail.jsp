@@ -19,33 +19,22 @@
             	<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
             	<!-- Begin Page Content -->
                 <div class="container-fluid">
+                <!-- 페이지 실제 내용 -->
 	                <h1>Detail Page</h1>
-	                <div class="card shadow mb-4">
-	                	<div class="card-body">
-	                		<div class="table-responsive">
-	                			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Title</th>
-	                						<th>Writer</th>
-	                						<th>Date</th>
-	                						<th>Hit</th>
-										</tr>
-									</thead>
-									<tbody>
-											<tr>
-												<td>${dto.boardNo}</td>
-												<td>${dto.boardTitle}</td>
-												<td>${dto.boardWriter}</td>
-												<td>${dto.boardDate}</td>
-												<td>${dto.boardHit}</td>
-											</tr>
-									</tbody>
-	                			</table>
-	                		</div>
-	                	</div>
-	                </div>
+                	<div class="row">
+		               	<div>${boardVO.boardNo}</div>
+						<div>${boardVO.boardTitle}</div>
+						<div>${boardVO.boardWriter}</div>
+						<div>${boardVO.boardDate}</div>
+						<div>${boardVO.boardHit}</div>
+                	</div>
+                	
+                	<div class="row">
+                		<c:forEach items="${boardVO.list}" var="f">
+                			<img alt="" src="../files/${board}/${f.fileName}">
+                			<a href="./fileDown?fileNo=${f.fileNo}">${f.oriName}</a>
+                		</c:forEach>
+                	</div>
                 </div>
             </div>
 			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>

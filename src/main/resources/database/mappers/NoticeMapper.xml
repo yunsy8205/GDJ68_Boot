@@ -27,9 +27,14 @@
 		LIMIT #{startRow}, #{lastRow}
 	</select>
 	
-	<insert id="add" parameterType="BoardVO">
+	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNo">
 		INSERT INTO NOTICE
 		VALUES (NULL, #{boardTitle}, #{boardWriter}, #{boardContents}, NOW(), 0)
+	</insert>
+	
+	<insert id="fileAdd" parameterType="NoticeFileVO">
+		INSERT INTO NOTICEFILES
+		VALUES (NULL, #{boardNo}, #{fileName}, #{oriName})
 	</insert>
 	
 	<select id="getCount" parameterType="Pager" resultType="Long">
@@ -40,9 +45,29 @@
 	</select>
 	
 	<!-- Detail -->
-	<select id="getDetail" parameterType="BoardVO" resultType="NoticeVO">
-		SELECT * FROM NOTICE WHERE BOARDNO=#{boardNo}
+	<select id="getDetail" parameterType="BoardVO" resultMap="result">
+		SELECT N.*, NF.* FROM
+		NOTICE N LEFT OUTER JOIN NOTICEFILES NF
+		ON (N.BOARDNO=NF.BOARDNO)
+		WHERE N.BOARDNO=#{boardNo}
 	</select>
+	
+	<resultMap type="NoticeVO" id="result">
+		<id column="BOARDNO" property="boardNo"/>
+		<result column="BOARDTITLE" property="boardTitle"/>
+		<result column="BOARDWRITER" property="boardWriter"/>
+		<result column="BOARDCONTENTS" property="boardContents"/>
+		<result column="BOARDDate" property="boardDate"/>
+		<result column="BOARDHit" property="boardHit"/>
+		
+		<collection property="list" javaType="java.util.List" ofType="NoticeFileVO">
+			<id column="FILENO" property="fileNo"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</collection>
+		
+	</resultMap>
+	
 	<!-- Update 제목, 내용 -->
 	<update id="setUpdate" parameterType="BoardVO">
 		UPDATE NOTICE SET
@@ -59,5 +84,9 @@
 	<delete id="setDelete" parameterType="BoardVO">
 		DELETE NOTICE WHERE BOARDNO=#{boardNo}
 	</delete>
+	
+	<select id="getFileDetail" parameterType="FileVO" resultType="NoticeFileVO">
+		SELECT * FROM NOTICEFILES WHERE FILENO=#{fileNo}
+	</select>
 
 </mapper>
