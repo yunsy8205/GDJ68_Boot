@@ -23,7 +23,7 @@
                 <div class="container-fluid">
                 	<!-- page 실제 내용 -->
                 	<h1>Welcome : <spring:message code="hello"></spring:message></h1>
-                	<h1><spring:message code="hi"></spring:message></h1>
+                	<h1><spring:message code="hi" text="기본메시지"></spring:message></h1>
                 </div>
             </div>
 			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
