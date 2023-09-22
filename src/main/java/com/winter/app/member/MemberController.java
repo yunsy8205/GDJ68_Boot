@@ -37,19 +37,18 @@ public class MemberController {
 		//세션보다는 DB를 수정하는 것이기 때문에 DB에서 불러와서 사용하는 것이 좋다.
 		//세션의 정보도 같이 바꿔줘야 함
 		memberVO = memberService.getLogin(memberVO);
-		model.addAttribute("memberVO", memberVO);
+		MemberInfoVO memberInfoVO = new MemberInfoVO();
+		memberInfoVO.setName(memberVO.getName());
+		memberInfoVO.setBirth(memberVO.getBirth());
+		memberInfoVO.setEmail(memberVO.getEmail());
+		
+		model.addAttribute("memberInfoVO", memberInfoVO);
 	}
 	
 	@PostMapping("update")
-	public void setUpdate(@Valid MemberVO memberVO,BindingResult bindingResult, MultipartFile photo)throws Exception{
+	public void setUpdate(@Valid MemberInfoVO memberInfoVO,BindingResult bindingResult, MultipartFile photo)throws Exception{
 		List<ObjectError> ar = bindingResult.getAllErrors();
 		
-		
-		
-		List<FieldError> errors = bindingResult.getFieldErrors();
-		for(FieldError e:errors) {
-			log.info(e.getField());// 검증에 실패한 것 출력
-		}
 	}
 	
 	public String getLogout(HttpSession session)throws Exception{

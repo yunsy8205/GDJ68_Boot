@@ -21,23 +21,7 @@
             	<!-- Begin Page Content -->
                 <div class="container-fluid">
                 	<!-- form에 form이 그냥 form태그 대체 -->
-                	<form:form modelAttribute="memberVO" method="post" enctype="multipart/form-data">
-                		<div class="form-group">
-                			<form:label path="username">Username</form:label>						    
-						    <form:input path="username" disabled="true" cssClass="form-control" id="username"/>
-						    <form:errors  path="username"></form:errors><!-- 에러 메세지를 여기에 찍기 위해 -->
-						    <!-- 어디다 넣을 것인가? 멤버VO 셋터의 이름, name속성이 없어도 됨 -->
-					    </div>
-					    <div class="form-group">
-                			<form:label path="password">Password</form:label>						    
-						    <form:password path="password" cssClass="form-control" id="password"/>
-					    	<form:errors path="password"></form:errors>
-					    </div>
-					    <div class="form-group">
-                			<form:label path="passwordCheck">PasswordCheck</form:label>						    
-						    <form:password path="passwordCheck" cssClass="form-control" id="passwordCheck"/>
-					    	<form:errors path="passwordCheck"></form:errors>
-					    </div>
+                	<form:form modelAttribute="memberInfoVO" method="post" enctype="multipart/form-data">
 					    <div class="form-group">
                 			<form:label path="name">Name</form:label>						    
 						    <form:input path="name" cssClass="form-control" id="name"/>
