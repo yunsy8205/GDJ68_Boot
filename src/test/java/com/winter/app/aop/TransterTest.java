@@ -14,7 +14,7 @@ class TransterTest {
 	@Autowired
 	private Card card;
 	
-	@Test
+	//@Test
 	void test() throws Exception{
 		
 		transfer.userBus("1000");

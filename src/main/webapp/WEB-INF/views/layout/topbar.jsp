@@ -26,11 +26,17 @@
                     <!-- Topbar Navbar -->
                     <c:if test="${empty member}">
                     	<ul class="navbar-nav ml-auto">
-                    		<li class="nav-item d-sm-none">
-                    			<a class="nav-link" href="#" id="join" role="button" aria-expanded="false">
-                                	<i class="fas fa-search fa-fw"></i>
+                    		<li class="nav-item">
+                    			<a class="nav-link" href="/member/join" id="join" role="button">
+                                	<i class='fas fa-id-badge' style='font-size:24px'></i>
                             	</a>
                     		</li>
+                    		<li class="nav-item">
+                    			<a class="nav-link" href="/member/login" id="login" role="button">
+                                	<i class='fas fa-user-lock' style='font-size:24px; color:red'></i>
+                            	</a>
+                    		</li>
+                    		
                     	</ul>
                     </c:if>
                     
@@ -197,14 +203,14 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    정보수정
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/member/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
