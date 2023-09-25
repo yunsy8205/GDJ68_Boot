@@ -36,7 +36,7 @@ public class MemberController {
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
 		//세션보다는 DB를 수정하는 것이기 때문에 DB에서 불러와서 사용하는 것이 좋다.
 		//세션의 정보도 같이 바꿔줘야 함
-		memberVO = memberService.getLogin(memberVO);
+		//memberVO = memberService.getLogin(memberVO);
 		MemberInfoVO memberInfoVO = new MemberInfoVO();
 		memberInfoVO.setName(memberVO.getName());
 		memberInfoVO.setBirth(memberVO.getBirth());
@@ -63,17 +63,18 @@ public class MemberController {
 		
 	}
 	
-	@PostMapping("login")
-	public String getLogin2(MemberVO memberVO, HttpSession session)throws Exception{
-		memberVO=memberService.getLogin(memberVO);
-		
-		if(memberVO != null) {
-			System.out.println("로그인 성공");
-			session.setAttribute("member", memberVO);
-			return "redirect:../";
-		}
-		return "redirect:./login";
-	}
+//	@PostMapping("login")
+//	public String getLogin2(MemberVO memberVO, HttpSession session)throws Exception{
+//		memberVO=memberService.getLogin(memberVO);
+//		
+//		if(memberVO != null) {
+//			System.out.println("로그인 성공");
+//			session.setAttribute("member", memberVO);
+//			return "redirect:../";
+//		}
+//		return "redirect:./login";
+//	}
+	
 //	@GetMapping("join")
 //	public String setJoin(Model model) throws Exception{
 //		MemberVO memberVO = new MemberVO();
