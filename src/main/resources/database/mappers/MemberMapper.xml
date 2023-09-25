@@ -7,4 +7,8 @@
 	<select id="getMember" parameterType="MemberVO" resultType="MemberVO">
 		SELECT * FROM MEMBER WHERE USERNAME=#{username}
 	</select>
+	
+	<insert id="join" parameterType="MemberVO">
+		INSERT INTO MEMBER VALUES (#{username}, #{password}, #{name}, #{email}, #{birth}, NOW())
+	</insert>
 </mapper>

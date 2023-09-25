@@ -4,12 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MemberService {
 
 	//DAO
 	@Autowired
 	private MemberDAO memberDAO;
+	
+//	public void testValid(MemberVO memberVO, BindingResult bindingResult) {
+//		log.info("test Valid");
+//	}
 	
 	//login
 	public MemberVO getLogin(MemberVO memberVO)throws Exception{

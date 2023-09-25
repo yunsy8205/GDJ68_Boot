@@ -7,13 +7,13 @@
 <sql id="forPager">
 	<choose>
 		<when test="kind=='1'">
-			boardTitle 
+		BOARDTITLE
 		</when>
 		<when test="kind=='2'">
-			boardContents
+		BOARDCONTENTS
 		</when>
 		<otherwise>
-			boardWriter
+		BOARDWRITER
 		</otherwise>
 	</choose>
 </sql>

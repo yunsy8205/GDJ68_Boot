@@ -93,6 +93,8 @@ public class MemberController {
 		//멤버VO를 검증할 거면 바로 뒤에 BindingResult가 있어야 한다.
 		//결과를 BindingResult에 담음
 		//나머지는 검증했고 다음에 비번 검증
+		//Valid는 컨트롤러에서만 사용가능
+		
 		boolean check = memberService.getMemberError(memberVO, bindingResult);
 		
 		if(bindingResult.hasErrors()||check) {//어노테이션 검증 에러 또는 비번확인 검증 에러 (둘중 하나만 에러가 있어도 조인으로 재이동)
@@ -100,6 +102,8 @@ public class MemberController {
 		}
 		
 		//회원가입 진행
+	
+		
 		log.info("photo:{}----size:{}",photo.getOriginalFilename(), photo.getSize());
 		return "redirect:../";
 	}
