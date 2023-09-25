@@ -51,6 +51,7 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("logout")
 	public String getLogout(HttpSession session)throws Exception{
 		//세션을 소멸시킨다.
 		session.invalidate();//세션 유지시간을 0으로 만듬
@@ -103,6 +104,7 @@ public class MemberController {
 		}
 		
 		//회원가입 진행
+		int result = memberService.setJoin(memberVO);
 	
 		
 		log.info("photo:{}----size:{}",photo.getOriginalFilename(), photo.getSize());

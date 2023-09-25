@@ -5,11 +5,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
 	@Bean//api라서 빈으로 만들어준다.
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -39,8 +46,16 @@ public class SecurityConfig {
 			//form 관련 설정/ 우리가 만든 로그인창 사용
 			.formLogin()
 				.loginPage("/member/login")//내장된 로그인폼을 사용하지 안고, 개발자가 만든 폼 사용 -> 로그인처리 주소
+				.defaultSuccessUrl("/")
+				.failureUrl("/member/login")
 				.permitAll()//누구나 허용 (여기다 해줘도 괜찮고, .authorizeHttpRequests()에 해줘도 됨)
-				;
+				.and()
+			.logout()
+				.logoutUrl("/member/logout")
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)//true를 주면 invalidate 하겠다는 의미
+				.and()
+			.sessionManagement();
 			
 		return httpSecurity.build();
 	}

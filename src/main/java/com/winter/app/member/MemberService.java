@@ -1,10 +1,15 @@
 package com.winter.app.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +21,9 @@ public class MemberService implements UserDetailsService{
 	//DAO
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -75,5 +83,18 @@ public class MemberService implements UserDetailsService{
 		}
 		
 		return check;
+	}
+	
+	//AOP이용해 트랜젝션 해줌, 메서드위 또는 클래스에 트랜젝션을 호출할 수 있다.
+	@Transactional(rollbackFor = Exception.class)
+	public int setJoin (MemberVO memberVO) throws Exception{
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
+		int result = memberDAO.setJoin(memberVO);
+		Map<String, Object> map = new HashMap<>();
+		map.put("roleNum", 3); //멤버가 기본값
+		map.put("username", memberVO.getUsername());
+		result = memberDAO.setMemberRole(map);
+		
+		return result;
 	}
 }
