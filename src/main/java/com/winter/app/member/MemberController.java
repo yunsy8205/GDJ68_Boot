@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,11 @@ public class MemberController {
 	//service
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("info")
+	public void getInfo()throws Exception{
+		
+	}
 	
 	@GetMapping("update")
 	public void setUpdate(HttpSession session, Model model)throws Exception{
@@ -60,8 +67,18 @@ public class MemberController {
 	}
 	
 	@GetMapping("login")
-	public void getLogin(@ModelAttribute MemberVO memberVO)throws Exception{
+	public String getLogin(@ModelAttribute MemberVO memberVO)throws Exception{
+		SecurityContext context = SecurityContextHolder.getContext();
 		
+		String check = context.getAuthentication().getPrincipal().toString();
+		
+		log.info("=========Name : {} =========", context.getAuthentication().getName());
+		
+		if(!check.equals("anonymousUser")) {
+			return "redirect:/";
+		}
+		
+		return "member/login";
 	}
 	
 //	@PostMapping("login")

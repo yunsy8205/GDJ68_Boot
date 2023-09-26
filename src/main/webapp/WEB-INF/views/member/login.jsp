@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,11 @@
             	<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
             	<!-- Begin Page Content -->
                 <div class="container-fluid">
-                
+                	<div>
+                		<h3>${param.message}</h3>
+                		<spring:message code="${param.message}" var="msg"></spring:message>
+						<h3>${msg}</h3>               		
+             		</div><!-- var이 들어가면 msg변수에 code내용을 넣으라는 의미 -->
                 	<form:form modelAttribute="memberVO" method="post">
                 		<div class="form-group">
                 			<form:label path="username">Username</form:label>						    
@@ -43,5 +48,11 @@
         </div>
     </div>
 <c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+<script type="text/javascript">
+	let m = '${msg}';
+	if(m !=''){
+		alert('${msg}');
+	}
+</script>
 </body>
 </html>

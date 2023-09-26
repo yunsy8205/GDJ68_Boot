@@ -1,5 +1,6 @@
 package com.winter.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	@Bean
+	@Autowired
+	private SecuritySuccessHandler handler;
+	
+	@Bean// 패스워드를 암호화해주는 객체
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
@@ -47,17 +51,35 @@ public class SecurityConfig {
 			.formLogin()
 				.loginPage("/member/login")//내장된 로그인폼을 사용하지 안고, 개발자가 만든 폼 사용 -> 로그인처리 주소
 				.defaultSuccessUrl("/")
-				.failureUrl("/member/login")
+				//.successHandler(handler)
+				//.failureUrl("/member/login?message=LoginFail")
+				.failureHandler(getFailHandler())
 				.permitAll()//누구나 허용 (여기다 해줘도 괜찮고, .authorizeHttpRequests()에 해줘도 됨)
 				.and()
 			.logout()
 				.logoutUrl("/member/logout")
-				.logoutSuccessUrl("/")
+				//.logoutSuccessUrl("/")
+				.addLogoutHandler(getLogoutAdd())
+				.logoutSuccessHandler(getLogoutHandler())
+				
 				.invalidateHttpSession(true)//true를 주면 invalidate 하겠다는 의미
 				.and()
 			.sessionManagement();
 			
 		return httpSecurity.build();
+	}
+	
+	private SecurityLogoutHandler getLogoutHandler() {
+		return new SecurityLogoutHandler();
+	}
+	
+	private SecurityLogoutAdd getLogoutAdd() {
+		return new SecurityLogoutAdd();
+	}
+	
+	//@Bean 안씀 여기서만 사용할 것이기 때문에
+	private SecurityFailHandler getFailHandler() {
+		return new SecurityFailHandler();
 	}
 	
 }

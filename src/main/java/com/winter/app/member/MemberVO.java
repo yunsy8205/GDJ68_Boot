@@ -31,6 +31,8 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	private String password;//메세지에 입력하면 디폴트 값이 아닌 입력한 값이 나옴 (다국어는 지원되지 않음)
 	private String passwordCheck;
 	
+	private boolean enabled;
+	
 	private List<RoleVO> roleVOs;
 	
 	@Override
@@ -62,7 +64,7 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.enabled;
 	}
 	
 	
