@@ -40,20 +40,20 @@ public class NoticeService implements BoardService{
 	public int add(BoardVO boardVO, MultipartFile[] files) throws Exception {
 		int result = noticeDAO.add(boardVO);
 
-//		for(MultipartFile multipartFile:files) {
-//			
-//			if(multipartFile.isEmpty()) {
-//				continue;//비어있다면
-//			}
-//			
-//			NoticeFileVO fileVO = new NoticeFileVO();
-//			String fileName=fileManager.save(this.uploadPath+this.boardName, multipartFile);
-//			fileVO.setBoardNo(boardVO.getBoardNo());
-//			fileVO.setFileName(fileName);
-//			fileVO.setOriName(multipartFile.getOriginalFilename());
-//			
-//			noticeDAO.fileAdd(fileVO);
-//		}
+		for(MultipartFile multipartFile:files) {
+			
+			if(multipartFile.isEmpty()) {
+				continue;//비어있다면
+			}
+			
+			NoticeFileVO fileVO = new NoticeFileVO();
+			String fileName=fileManager.save(this.uploadPath+this.boardName, multipartFile);
+			fileVO.setBoardNo(boardVO.getBoardNo());
+			fileVO.setFileName(fileName);
+			fileVO.setOriName(multipartFile.getOriginalFilename());
+			
+			noticeDAO.fileAdd(fileVO);
+		}
 		return result;
 	}
 	
