@@ -70,7 +70,11 @@ public class SecurityConfig {
 				.userDetailsService(memberService)
 				.authenticationSuccessHandler(handler)//성공시
 				.and()
-			.sessionManagement();
+			.oauth2Login()
+			   	.userInfoEndpoint()
+			   	.userService(memberService)//받아서 처리할 서비스객체
+			   	.and()
+			;
 			
 		return httpSecurity.build();
 	}

@@ -46,6 +46,7 @@
 					  <button type="submit" class="btn btn-primary">Submit</button>
                 	
                 	</form:form>
+               		<a href="/oauth2/authorization/kakao">KakaoLogin</a>
                 </div>
             </div>
 			<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>

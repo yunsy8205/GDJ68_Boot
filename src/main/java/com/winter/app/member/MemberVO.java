@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberVO extends MemberInfoVO implements UserDetails{
+public class MemberVO extends MemberInfoVO implements UserDetails, OAuth2User{
 	
 	@NotBlank //비어 있으면 안됨
 	@Size(max = 12, min = 2)// 순서를 바꿔도 고정으로 max 1번, min 2번이다.
@@ -34,6 +36,15 @@ public class MemberVO extends MemberInfoVO implements UserDetails{
 	private boolean enabled;
 	
 	private List<RoleVO> roleVOs;
+	
+	private Map<String, Object> attributes;
+	
+	//Oaut2User
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {//권한을 가지고 와서 검사 (admin, manager)
