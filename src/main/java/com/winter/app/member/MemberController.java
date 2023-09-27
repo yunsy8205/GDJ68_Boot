@@ -1,5 +1,6 @@
 package com.winter.app.member;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,15 +37,17 @@ public class MemberController {
 	
 	@GetMapping("info")
 	public void getInfo()throws Exception{
-		
+		//DB에서 사용자 정보를 조회 해서 JSP로 보냄
+		//로그인시 세션에 담는 것은 최소한으로 하는 것이 좋고 불러올 때는 DB에서 불러오는 것이 좋다.
 	}
 	
 	@GetMapping("update")
-	public void setUpdate(HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO)session.getAttribute("member");
+	public void setUpdate(@AuthenticationPrincipal MemberVO memberVO, Model model)throws Exception{
+//		MemberVO memberVO = (MemberVO)principal;
 		//세션보다는 DB를 수정하는 것이기 때문에 DB에서 불러와서 사용하는 것이 좋다.
 		//세션의 정보도 같이 바꿔줘야 함
 		//memberVO = memberService.getLogin(memberVO);
+		
 		MemberInfoVO memberInfoVO = new MemberInfoVO();
 		memberInfoVO.setName(memberVO.getName());
 		memberInfoVO.setBirth(memberVO.getBirth());
@@ -53,9 +57,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("update")
-	public void setUpdate(@Valid MemberInfoVO memberInfoVO,BindingResult bindingResult, MultipartFile photo)throws Exception{
-		List<ObjectError> ar = bindingResult.getAllErrors();
+	public String setUpdate(@Valid MemberInfoVO memberInfoVO,BindingResult bindingResult, MultipartFile photo)throws Exception{
+		Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = (MemberVO) obj;
+		memberVO.setEmail("UpdateEmail@naver.com");
 		
+		return "redirect:/";
 	}
 	
 	@GetMapping("logout")

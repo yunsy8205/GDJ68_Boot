@@ -24,7 +24,8 @@
                 	<div class="row">
                 	<sec:authorize access="isAuthenticated()">
                 	<sec:authentication property="principal" var="user"/>
-                	<h1>${user.username}</h1>
+                	<h3>${user.username}</h3>
+                	<h3>${user.email}</h3>
                 	</sec:authorize>
                 	</div>
                 </div>

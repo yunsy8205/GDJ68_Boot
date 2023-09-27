@@ -55,7 +55,7 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String add(NoticeVO noticeVO, MultipartFile [] files)throws Exception{
+	public String addTest(NoticeVO noticeVO, MultipartFile [] files)throws Exception{
 		//log.info("NoticeVO : {}", noticeVO);//{}사이에 노티스VO를 넣는다. +(더하기)보다 성능이 좋다.
 		//log.info(files); 에러발생
 		//log.info("files : {}",files);
