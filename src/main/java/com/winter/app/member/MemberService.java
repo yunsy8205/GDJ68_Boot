@@ -51,13 +51,13 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		String social = clientRegistration.getRegistrationId();
 		
 		if(social.equals("kakao")) {
-			auth2User = this.forKakao(auth2User);
+			auth2User = this.forKakao(auth2User, userRequest);
 		}
 		
 		return auth2User;
 	}
 	
-	private OAuth2User forKakao(OAuth2User auth2User){
+	private OAuth2User forKakao(OAuth2User auth2User, OAuth2UserRequest userRequest){
 		//위 메서드에서 꺼낸 것을 받기 위해
 		MemberVO memberVO = new MemberVO();
 		//memberVO.setUsername();//소셜 로그인 하면 id대신 숫자가 오는데 대신 이름을 넣어준다.
@@ -84,9 +84,11 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 //		sb.append("-");
 //		sb.append(d);
 		sb.append(y).append("-").append(m).append("-").append(d);
- 		
+		memberVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
+		
 		memberVO.setUsername(map.get("nickname").toString());
-		memberVO.setName(map.get("nickname").toString());
+		//memberVO.setName(map.get("nickname").toString());
+		memberVO.setName(auth2User.getName());//회원ID를 Name에 대입
 		memberVO.setEmail(map2.get("email").toString());
 		memberVO.setBirth(Date.valueOf(sb.toString()));
 		

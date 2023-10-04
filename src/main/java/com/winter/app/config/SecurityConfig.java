@@ -39,7 +39,10 @@ public class SecurityConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 		httpSecurity
 			.cors()//외부 서버에서 넘어올 때 에러를 막아줌
+		
 			.and()
+			.csrf()
+			.disable()
 
 			.authorizeHttpRequests()
 				//.antMatchers("/notice/add").authenticated()//로그인한 사람만
@@ -60,7 +63,7 @@ public class SecurityConfig {
 				.logoutUrl("/member/logout")
 				//.logoutSuccessUrl("/")
 				.addLogoutHandler(getLogoutAdd())
-				.logoutSuccessHandler(getLogoutHandler())
+				//.logoutSuccessHandler(getLogoutHandler())
 				
 				.invalidateHttpSession(true)//true를 주면 invalidate 하겠다는 의미
 				.and()
